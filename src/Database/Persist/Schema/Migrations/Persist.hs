@@ -6,6 +6,8 @@ module Database.Persist.Schema.Migrations.Persist
   , applyMigration
   , revertMigration
   , getMigrations
+  , migrationTableName
+  , migrationIdColName
   ) where
 
 import Control.Monad (when)
