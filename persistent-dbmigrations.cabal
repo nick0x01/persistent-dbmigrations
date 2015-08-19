@@ -13,7 +13,7 @@ library
     Database.Persist.Schema.Migrations
     Database.Persist.Schema.Migrations.Persist
   build-depends:
-      base >=4.7 && <4.8
+      base
     , dbmigrations >= 0.8
     , containers
     , persistent >= 1.3.1.1
