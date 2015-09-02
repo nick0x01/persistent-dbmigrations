@@ -29,7 +29,7 @@ migrationIdColName = "migration_id"
 
 getBootstrapMigration :: SqlPersistM Migration
 getBootstrapMigration = do
-  m <- liftIO $ newMigration rootMigrationName
+  let m = newMigration rootMigrationName
   return $ m { mApply = unpack [st|CREATE TABLE #{migrationTableName} (#{migrationIdColName} TEXT)|]
              , mRevert = Just $ unpack [st|DROP TABLE #{migrationTableName}|]
              , mDesc = Just "Migration table installation"
