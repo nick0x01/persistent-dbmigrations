@@ -23,7 +23,7 @@ missingMigrations storeData = do
          (Set.fromList storeMigrationNames)
          (Set.fromList backendMigrations)
 
-createNewMigration :: (MonadMigration m, S.MigrationStore s m) => s -> String -> [String] -> m (Either String Migration)
+createNewMigration :: S.MigrationStore -> String -> [String] -> IO (Either String Migration)
 createNewMigration store name deps = do
   available <- S.getMigrations store
   case name `elem` available of
@@ -31,7 +31,7 @@ createNewMigration store name deps = do
       fullPath <- S.fullMigrationName store name
       return $ Left $ "Migration " ++ (show fullPath) ++ " already exists"
     False -> do
-      new <- newMigration name
+      let new = newMigration name
       let newWithDefaults = new { mDesc = Just "(Description here.)"
                                 , mApply = "(Apply SQL here.)"
                                 , mRevert = Just "(Revert SQL here.)"
